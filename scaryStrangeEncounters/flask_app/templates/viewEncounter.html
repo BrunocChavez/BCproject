@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% block head %} {% include 'blockFiles/head.html' %} {% endblock head %}
+<body class="viewAdd">
+    {% block header %} {% include 'blockFiles/header.html' %} {% endblock header %}
+    <div class="messages">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for m in messages %}
+                    <h5>{{m}}</h5>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <main>
+    <div class="index">
+        <h2 class="tableHeading">{{encounter.category}}</h2>
+            <Table class="viewTable">
+                <tr>
+                    <th>Location</th>
+                    <th>Date</th>
+                    <th> Encounter Report</th>
+                </tr>
+                    <tr>
+                        <td>{{encounter.location}}</td>
+                        <td>{{encounter.dateEncounter}}</td>
+                        <td>{{encounter.encounterReport}}</td>
+                    </tr>
+            </Table>
+        </div>
+    </main>
+    {% block footer %} {% include 'blockFiles/footer.html' %} {% endblock footer %}
+</body>
+</html>
+

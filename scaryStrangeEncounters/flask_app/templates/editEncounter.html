@@ -1,0 +1,39 @@
+<html lang="en">
+    {% block head %} {% include 'blockFiles/head.html' %} {% endblock head %}
+<body class="editPage">
+    {% block header %} {% include 'blockFiles/header.html' %} {% endblock header %}
+    <div class="messages">
+        {% with messages = get_flashed_messages() %}
+            {%if messages %}
+                {% for m in messages %}
+                    <h5>{{m}}</h5>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <main>
+        <h2 class="tableHeading">Edit your Encounter</h2>
+        <div class="addBox">
+        <form class="addEncounter"action="/encounter/{{encounter.id}}/update/", method="post">
+            <section class="addSelection">
+                <label for="category">Category</label>
+                <input type="text" name="category" value="{{encounter.category}}">
+            </section>
+            <section class="addSelection">
+                <label for="location">Location</label>
+                <input type="text" name="location">
+            </section>
+            <section class="addSelection">
+                <label for="encounterReport">Encounter Report</label>
+                <textarea name="encounterReport" id="" cols="30" rows="10"></textarea>
+                <section class="addSelection"> 
+                    <label for="dateEncounter">Date of Encounter:</label> 
+                    <input type="date" name="dateEncounter">
+                </section>
+            <button>Update</button>
+        </form>
+        </div>
+    </main>
+    {% block footer %} {% include 'blockFiles/footer.html' %} {% endblock footer %}
+</body>
+</html>

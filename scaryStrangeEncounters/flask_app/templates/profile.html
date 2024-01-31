@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% block head %} {% include 'blockFiles/head.html' %} {% endblock head %}
+<body class="profilePage">
+    {% block header %} {% include 'blockFiles/header.html' %} {% endblock header %}
+    <div class="messages">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for m in messages %}
+                    <h5>{{m}}</h5>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <main>
+        <h2 class="tableHeading">{{user.firstName}}'s Encounters</h2>
+        <table class="profileTable">
+            <tr>
+                <th>Category</th>
+                <th>Date of Encounter</th>
+                <th>Actions</th>
+            </tr>
+            {% for encounter in userEncounters.encounters %}
+                <tr>
+                    <td>{{encounter.category}}</td>
+                    <td>{{encounter.dateEncounter}}</td>
+                    <td>
+                        <a href="/encounter/{{encounter.id}}/view/" class="actions">View</a>
+                        {% if encounter.user_id == user.id %}
+                            | <a href="/encounter/{{encounter.id}}/edit/" class="actions">Edit</a> | <a href="/encounter/{{encounter.id}}/delete/" class="actions">Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </main>
+    {% block footer %} {% include 'blockFiles/footer.html' %} {% endblock footer %}
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% block head %} {% include 'blockFiles/head.html' %} {% endblock head %}
+<body class="indexBody">
+    {% block header %} {% include 'blockFiles/header.html' %} {% endblock header %}
+    <div class="messages">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for m in messages %}
+                    <h5>{{m}}</h5>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+    <main>
+    <div class="index">
+        <h2 class="tableHeading">Encounters</h2>
+        <table class="indexTable">
+            <tr>
+                <th>Location</th>
+                <th>Reported By</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            {% for encounter in encounters %}
+                <tr>
+                    <td>{{encounter.location}}</td>
+                    <td>
+                        {% for u in users %}
+                            {% if u.id == encounter.user_id %}
+                                {{u.firstName}} {{u.lastName}}
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {{encounter.dateEncounter}}
+                    </td>
+                    <td>
+                        <a href="/encounter/{{encounter.id}}/view/" class="actions">View</a>
+                        {% if encounter.user_id == user.id %}
+                            | <a href="/encounter/{{encounter.id}}/edit/" class="actions">Edit</a> | <a href="/encounter/{{encounter.id}}/delete/" class="actions">Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </main>
+    {% block footer %} {% include 'blockFiles/footer.html' %} {% endblock footer %}
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    {% block header %}
+        <header>
+            <div class="row">
+                <h2>Welcome, {{user.fullName()}}</h2>
+                <h3 class="titleName">Scary Strange Encounters</h3>
+                <h2>{{page.title}}</h2>
+            </div>
+            {% block nav %} {% include 'blockFiles/nav.html' %} {% endblock nav %}
+    </header>
+    {% endblock header %}
+</body>
+</html>
